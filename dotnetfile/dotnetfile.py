@@ -878,7 +878,8 @@ class Cor20Header:
 
         method_signature_index = metadata_table_row.blob_stream_references['Signature']
         method_signature = self.dotnetpe.dotnet_blob_lookup[method_signature_index]
-
+        if method_signature is None:
+            return result
         types_with_methods = self.dotnetpe.TypeDef.get_type_names_with_methods()
 
         for type_with_method in types_with_methods:
