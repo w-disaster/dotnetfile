@@ -877,8 +877,9 @@ class Cor20Header:
         result = Struct.ManagedEntryPoint(Type.EntryPoint.MANAGED.value, method_name)
 
         method_signature_index = metadata_table_row.blob_stream_references['Signature']
-        method_signature = self.dotnetpe.dotnet_blob_lookup[method_signature_index]
-        if method_signature is None:
+        try:
+            method_signature = self.dotnetpe.dotnet_blob_lookup[method_signature_index]
+        except:
             return result
         types_with_methods = self.dotnetpe.TypeDef.get_type_names_with_methods()
 
